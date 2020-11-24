@@ -21,3 +21,5 @@ print(type(html), type(soup))   # <class 'http.client.HTTPResponse'> <class 'bs4
 
 # ----- 3. 한 줄로 모든 명령을 실행하는 마법의 명령어 만들기
 soup = bs(ur.urlopen('http://quotes.toscrape.com').read(), 'html.parser')
+
+print(soup)
