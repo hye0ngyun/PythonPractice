@@ -64,21 +64,45 @@ class Crawler:
                 content = Content(url, title, body)
                 content.print()
 
+# -----
+# 타겟 페이지의 내부링크를 리스트형으로 리턴하는 함수
+def get_links():
+    all_links = []
+    
+    # 전체 목록을 보여주는 페이지로의 요청(Request) 객체를 생성합니다.
+    req = requests.get('https://www.mofa.go.jp/region/asia-paci/takeshima/index.html')
+    html = req.text
+    soup = BeautifulSoup(html, 'html.parser')
+    
+    for link in soup.find('ul', {'class' : 'menu1'}).findAll('a'):
+        if 'href' in link.attrs: # 내부에 있는 항목들을 리스트로 가져옵니다.
+            #print(link.attrs['href'])
+            links = link.attrs['href']
+            all_links.append('https://www.mofa.go.jp' + links)
+
+    return all_links
+
+links = get_links()   # 내부 링크 리스트로 subjects에 할당
+print('총 ', len(links), '개의 링크를 찾았습니다..')
+# print(links) # 내부 링크 출력
+
 crawler = Crawler()
 siteData = [
-    ['O\'Reilly Media', 'http://oreilly.com', 'h1', 'section#product-description'],
-    ['Reuters', 'http://reuters.com', 'h1', 'div.StandardArticleBody_body_1gnLA'],
-    ['Brookings', 'http://www.brookings.edu', 'h1', 'div.post-body']
+    ['Japanese Territory', 'https://www.mofa.go.jp', 'h2', 'div#maincol p']
 ]
 websites = []
+'''
 urls = [
-    'http://shop.oreiily.com/product/0636920028154.do',
-    'http://www.reuters.com/article/us-usa-epa-pruitt-idUSKBN19W2D0',
-    'https://www.brookings.edu/blog/techtank/2016/03/01/idea-to-retire-old-methods-of-policy-education/'
+    'https://www.mofa.go.jp/region/asia-paci/takeshima/index.html',
+    'https://www.mofa.go.jp/a_o/na/takeshima/page1we_000014.html'
 ]
+'''
 for row in siteData:
     websites.append(Website(row[0], row[1], row[2], row[3]))
 
-crawler.parse(websites[0], urls[0])
-crawler.parse(websites[1], urls[1])
-crawler.parse(websites[2], urls[2])
+#crawler.parse(websites[0], urls[0])
+#crawler.parse(websites[0], urls[1])
+
+for link in links:
+    crawler.parse(websites[0], link)
+
