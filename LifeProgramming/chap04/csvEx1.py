@@ -11,12 +11,12 @@ for i in new:
 print(a_list)
 
 def opencsv(filename):
-    f = open(filename, 'r')
-    reader = csv.reader(f)
-    output = []
-    for i in reader:
-        output.append(i)
+    with open(filename, 'r') as f:
+        reader = csv.reader(f)
+        output = []
+        for i in reader:
+            output.append(i)
     return output
-    f.close()
+
     
 print(opencsv('example2.csv'))
