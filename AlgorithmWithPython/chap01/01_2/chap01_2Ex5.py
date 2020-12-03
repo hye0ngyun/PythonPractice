@@ -30,8 +30,9 @@ print()
 print('+와 -를 번갈아 출력합니다.')
 n = int(input('몇 개를 출력할까요?: '))
 
-for _ in range(n // 2):
+for _ in range(n // 2): # 파이썬에서 무시하고 싶은 값은 언더스코어로 표현할 수 있다.
     print('+-', end='')
+# n이 홀수인 경우 마지막 +를 출력하기 위한 코드
 if n % 2:  # if n % 2 == 1:과 같은 의미
     print('+', end='')
 print()
