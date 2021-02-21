@@ -1,0 +1,1 @@
+print(int(oct(int(input(), 16))[2:]))
