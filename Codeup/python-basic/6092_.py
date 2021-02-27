@@ -18,3 +18,12 @@ for i in nums:
 n = int(input())
 nums = map(int, input().split())
 print(min(nums))
+#6095
+li = [[0 for i in range(19)] for j in range(19)]
+n = int(input())
+for i in range(n):
+    x, y = map(int, input().split())
+    if(li[x-1][y-1] != 1):
+        li[x-1][y-1] = 1
+for i in li:
+	print(' '.join(map(str, i)))
