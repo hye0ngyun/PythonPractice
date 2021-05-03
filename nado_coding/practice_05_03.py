@@ -111,3 +111,63 @@ print(' -- 당첨자 발표 -- ')
 print(f'치킨 당첨자: {first}')
 print(f'커피 당첨자: {(sample(lst, 3))}')
 print(' -- 축하합니다. --')
+
+# if
+# weather = input('오늘 날씨는?')
+# if weather == '비' or weather == '눈':
+#     print('비가 온다. 우산을 챙기자.')
+# elif weather == '미세먼지':
+#     print('마스크를 챙기세요')
+# else:
+#     print('비가 오지 않는다.')
+
+# temp = int(input('기온은 어떄요? '))
+# if 30 <= temp:
+#     print('너무 더워요. 나가지 마세요.')
+# elif 10 <= temp and temp < 30:
+#     print('괜찮은 날씨에요.')
+# elif 0 <= temp < 10:
+#     print('외투를 챙기세요.')
+# else:
+#     print('너무 추워요. 나가지 마세요.')
+
+# for
+for waiting_no in [0, 1, 2, 3, 4]:
+    print(f'대기번호: {waiting_no}')
+starbucks = ['아이언멘', '토르', '캡틴 아메리카', '그루트']
+for customer in starbucks:
+    print(f'{customer}님 커피 준비 됐습니다.')
+
+# while
+import time
+customer = '토르'
+index = 5
+while index >= 1:
+    print(f'{customer}님 커피가 준비됐습니다. {index}번 남았어요.')
+    index -= 1
+    # time.sleep(1)
+    if index == 0:
+        print('커피는 폐기처분됐습니다.')
+
+# continue, break
+absent = [2, 5]
+no_book = [7]
+for student in range(1, 11):
+    if student in absent:
+        continue
+    elif student in no_book:
+        print(f'오늘 수업은 여기서 마칩니다. {student}학생은 교무실로 오세요.')
+        break
+    print(f'{student}번 학생 책을 읽어보세요.')
+
+# 퀴즈
+from random import *
+customer = [randint(5, 50) for x in range(50)]
+# chk = [true for x in customer if 5 <= x <= 15]
+my_customer = [x for x in customer if 5 <= x <= 15]
+for i in range(1, 50):
+    if customer[i] in my_customer:
+        print(f'[O] {i:02d}번째 손님 (소요시간: {customer[i]})')
+    else:
+        print(f'[ ] {i:02d}번째 손님 (소요시간: {customer[i]})')
+print(f'총 탑승 승객: {len(my_customer)}')
