@@ -165,9 +165,9 @@ from random import *
 customer = [randint(5, 50) for x in range(50)]
 # chk = [true for x in customer if 5 <= x <= 15]
 my_customer = [x for x in customer if 5 <= x <= 15]
-for i in range(1, 50):
-    if customer[i] in my_customer:
-        print(f'[O] {i:02d}번째 손님 (소요시간: {customer[i]})')
+for i in range(1, 51):
+    if customer[i-1] in my_customer:
+        print(f'[O] {i:02d}번째 손님 (소요시간: {customer[i-1]})')
     else:
-        print(f'[ ] {i:02d}번째 손님 (소요시간: {customer[i]})')
+        print(f'[ ] {i:02d}번째 손님 (소요시간: {customer[i-1]})')
 print(f'총 탑승 승객: {len(my_customer)}')
