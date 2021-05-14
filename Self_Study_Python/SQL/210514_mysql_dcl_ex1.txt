@@ -1,0 +1,174 @@
+Question:
+1> 계정(account) 추가  -- mysql, root계정으로 작업
+   id : mymy,  pw : 7777
+   사용DB : mydb
+
+2> mymy계정으로 mysql에 접속 
+
+Answer:
+C:> mysql -u root -p
+mysql> create database mydb;
+mysql> use mydb;
+mysql> create user mymy@'%' identified by '7777';
+mysql> grant all privileges on mydb.* to mymy@'%' with grant option;
+mysql> flush privileges;
+mysql> exit
+C:> mysql -u mymy -p7777
+mysql> exit
+
+mysql> create table oecd(
+    -> nation char(20),
+    -> population int,
+    -> popratio float);
+mysql> desc oecd;
+mysql> insert into oecd values('USA', 318816000, 4.39);
+mysql> insert into oecd values('SKorea', 50423955, 0.69);
+mysql> insert into oecd values('Iran', 77775100, 1.07);
+mysql> select * from oecd;
+mysql> delete from oecd where nation = 'USA';
+mysql> select * from oecd;
+mysql> delete from oecd;
+mysql> select * from oecd;
+mysql> drop table oecd;
+mysql> show tables;
+
+
+
+-----------------------------------------------------------
+실행결과
+-----------------------------------------------------------
+mysql> create user mymy@'%' identified by '7777';
+ERROR 1396 (HY000): Operation CREATE USER failed for 'mymy'@'%'
+mysql> drop user mymy
+    -> ;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create user mymy@'%' identified by '7777';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| acedb              |
+| bdb                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| rootdb             |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.01 sec)
+
+mysql> create database mydb;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use mydb;
+Database changed
+mysql> grant all privileges on mydb.* to mymy@'%' with grant option;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\CPB06GameN>mysql -u mymy -p7777
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 49
+Server version: 8.0.25 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select user();
++----------------+
+| user()         |
++----------------+
+| mymy@localhost |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> create table oecd(
+    -> nation char(20),
+    -> population int,
+    -> popratio int);
+ERROR 1046 (3D000): No database selected
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydb               |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> use mydb;
+Database changed
+mysql> create table oecd(
+    -> nation char(20),
+    -> population int,
+    -> popratio float);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc oecd;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| nation     | char(20) | YES  |     | NULL    |       |
+| population | int      | YES  |     | NULL    |       |
+| popratio   | float    | YES  |     | NULL    |       |
++------------+----------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into oecd values('USA', 318816000, 4.39);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into oecd values('SKorea', 50423955, 0.69);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into oecd values('Iran', 77775100, 1.07);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from oecd;
++--------+------------+----------+
+| nation | population | popratio |
++--------+------------+----------+
+| USA    |  318816000 |     4.39 |
+| SKorea |   50423955 |     0.69 |
+| Iran   |   77775100 |     1.07 |
++--------+------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> delete from oecd where nation = 'USA';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from oecd;
++--------+------------+----------+
+| nation | population | popratio |
++--------+------------+----------+
+| SKorea |   50423955 |     0.69 |
+| Iran   |   77775100 |     1.07 |
++--------+------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> delete from oecd;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> select * from oecd;
+Empty set (0.00 sec)
+
+mysql> drop table oecd;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
+Empty set (0.01 sec)
