@@ -1,0 +1,16 @@
+Question:
+1> 계정(account) 추가  -- mysql, root계정으로 작업
+   id : mymy,  pw : 7777
+   사용DB : mydb
+
+2> mymy계정으로 mysql에 접속 
+
+Answer:
+mysql> create database mydb;
+mysql> use mydb;
+mysql> create user mymy@'%' identified by '7777';
+mysql> grant all privileges on mydb.* to mymy@'%' with grant option;
+mysql> flush privileges;
+mysql> exit
+C:>mysql -u mymy -p7777
+mysql> exit
