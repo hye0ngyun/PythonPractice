@@ -1,5 +1,5 @@
 # fibonacii for loop function (반복문 함수)
-fibo = 15
+fibo = 11
 # 변수 정의
 count = 0 # 계산 카운트
 # fibo = 7 # fibonacci 7번째 값
@@ -9,10 +9,9 @@ def fibo_for(n):
     global count
     _cur, _next = 0, 1
     for i in range(n):
-        print(f'for loop[{i}] _cur: {_cur}, _next: {_next}')
-        _cur, _next = _next, _cur + _next
         count += 1
-    print(f'fibo_for({n}): {_cur}, count: {count}')
+        print(f'for loop[{i}] _cur: {_cur}, _next: {_next}, count: {count}')
+        _cur, _next = _next, _cur + _next
     return _cur
 
 # 결과 출력
