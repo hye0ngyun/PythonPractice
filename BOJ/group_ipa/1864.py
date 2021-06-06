@@ -6,7 +6,7 @@ while True:
     _str = input()
     if _str == '#':
         break
-    for i in range(0, len(_str) - 1, -1):
-        total += _code[_str[i]] * (8 ** i)
+    for i in range(len(_str) - 1, -1, -1):
+        total += _code[_str[i]] * (8 ** (len(_str) - i - 1))
     print(total)
 
