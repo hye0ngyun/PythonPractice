@@ -23,16 +23,17 @@ S2_idx = 0
 for i in range(len(S1)):
     # 첫 번째 문자열을 시작인덱스 부터 탐색
     S2_idx = 0
+    LCS[i] = ''
     for j in range(i, len(S1)):
         # 두 번째 문자열을 첫 번째 문자열과 각각 검사
         
         for k in range(S2_idx, len(S2)):
             
             if S1[j] == S2[k]:
-                if i not in LCS:
+                if S1[j] not in LCS:
                     LCS[i] = ''
                 LCS[i] += S1[j]
-                S2_idx += 1
+                S2_idx += k + 1
                 break
             
 print(LCS)
