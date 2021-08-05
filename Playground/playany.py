@@ -1,3 +1,4 @@
+# <<<<<<< HEAD
 ### 성적 처리
 st = []
 with open('c:\\dd\\ss.txt', 'r', encoding='utf8') as f:
@@ -32,3 +33,29 @@ for i in range(10):
 
 print(' 국어 평균 : {} 영어 평균 : {} 수학 평균 : {}, 반 평균 : {}'\
     .format(avg_kor, avg_eng, avg_mat, (avg_kor + avg_eng + avg_mat) / 3))
+
+# T초
+T = int(input())
+# A: 5분, B: 1분, C: 10초
+A = 300
+B = 60
+C = 10
+cnt = [0, 0, 0]
+
+if T % C == 0:
+    if T >= A:
+        cnt[0] = T // A
+        T = T % A
+    if T >= B:
+        cnt[1] = T // B
+        T = T % B
+    if T >= C:
+        cnt[2] = T // C
+        T = T % C        
+    for i in cnt:
+        print(i, end=' ')
+else:
+    print(-1)
+    
+
+# >>>>>>> 0d43b06b108a911d5982ee7c01231272da7708a6
