@@ -1,3 +1,6 @@
+# from PythonPractice.projects.Money_Saver.income_tax_calc import income_tax_calc
+from deduction_calc import deduction_calc 
+from income_tax_calc import income_tax_calc
 # 인턴을 시작하며 월급을 받는 사회초년생으로 돈 관리를 하기 위한 프로젝트
 # salary: 급여, spending: 지출, reserve_fund: 예비자금
 
@@ -39,9 +42,14 @@ pay_day = 31
 
 # 입력 받을 때 ','있던 없던 인식할 수 있도록 해야 함
 salary_account = '1,810,330'
+# dependents: 부양가족
+dependents = 1
+
 # consumption_account = variable_spending
 investment_account = ''
 preliminary_account = ''
+
+money = int(salary_account.replace(',', ''))
 
 # 입력된 spending dict들의 총값을 구하는 함수
 def get_money(*args):
@@ -51,12 +59,9 @@ def get_money(*args):
       total_money += money
   return total_money
 
-# 자료 찾아서 자동적으로 계산할 수 있도록 해야 함
-public_spending = {
-  '소득세': 123, 
-  '국민연금': 123, 
-  '건강보험료': 123,
-}
+# 공제금: 자료 찾아서 자동적으로 계산할 수 있도록 해야 함
+public_spending = deduction_calc(money, dependents)
+print(public_spending)
 # 매월 정기적으로 나가는 금액
 fixed_spending = {
   '암 보험': 50000, 
@@ -73,7 +78,8 @@ seasonal_spending = {
   '휴가비': 0
 }
 
-print(get_money(public_spending, fixed_spending, variable_spending, seasonal_spending))
+# 현재 public_spending이 세후 금액으로 돼있음 추후 수정 해야함
+print(public_spending - get_money(fixed_spending, variable_spending, seasonal_spending))
 
 # 지출 제외한 금액
 # remain_money = salary_account - (public_spending.values())
