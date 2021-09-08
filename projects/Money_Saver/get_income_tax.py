@@ -9,12 +9,12 @@ df = pd.read_excel('PythonPractice\projects\Money_Saver\modified_simple_tax_amou
 # print(소득세)
 
 
-def income_tax_calc(salary, dependents):
+def get_income_tax(salary, dependents):
   """
   salary: 월급
   dependents: 부양가족
   """
   base_salary = int(salary / 1000)
   working_tax = df[df['미만'] > base_salary].iloc[0][dependents]
-  
+  # 소득세 반환
   return working_tax
