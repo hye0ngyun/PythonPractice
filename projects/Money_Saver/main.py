@@ -9,6 +9,14 @@ from deduction import *
 
 #########################################################################
 
+# 급여일
+pay_day = 31
+# dependents: 부양가족
+dependents = 1
+# 세전월급
+before_tax_salary = '2,000,000'
+before_tax_salary = int(before_tax_salary.replace(',', ''))
+
 accounts = {
   "salary": 0,      # 급여
   "consumption": 0, # 소비
@@ -21,112 +29,85 @@ spendings = {
   "variable": {},    # 소비
   "seasonal": {},    # 계절
 }
+# 입력받은 지출을 항목마다 넣기
+spendings = {k: v for k, v in spendings.items()}
+# print(sum(accounts.values()))
 
-
-def get_accounts():
+def get_accounts(accounts):
   for account, money in accounts.items():
     print(account, money)
 
 
-def get_spendings():
+def get_spendings(spendings):
   for name, spending in spendings.items():
     print(name, spending)
-spendings['variable'] = {'식비': 10}
-get_accounts()
-get_spendings()
-#####################################################################################
-# 입력된 spending dict들의 총값을 구하는 함수
-def get_spendings(*args):
-  total_money = 0
-  for arg in args:
-    for money in arg.values():
-      total_money += money
-  return total_money
+
+# get_accounts()
 
 
-# 급여일
-pay_day = 31
-# dependents: 부양가족
-dependents = 1
-# 입력 받을 때 ','있던 없던 인식할 수 있도록 해야 함
-# 세전 월급
-before_tax_salary = '2,000,000'
-before_tax_salary = int(before_tax_salary.replace(',', ''))
-print(f'세전 금액: {before_tax_salary}')
+deductions = get_deduction(before_tax_salary, dependents)
+print(sum(deductions.values()))
+# get_spendings(deductions)
 
+## 입금 후
+
+## 
+accounts["salary"] = before_tax_salary
 # 공적 지출
-spending["public"] = get_deduction(before_tax_salary, dependents)
-print(f'공제 금액: {spending["public"]}')
-
-# 세후 월급
-after_tax_salary = before_tax_salary - spending["public"]
-print(f'세후 금액: {after_tax_salary}')
-
-# 급여 통장
-account["salary"] = after_tax_salary
-# 소비 통장
-account["consumption"] = 0
-# 투자 통장
-account["investment"] = 0
-# 예비 통장
-account["preliminary"] = 0
-investment_account = ''
-preliminary_account = ''
-
-money = after_tax_salary
-
-
-# 공제금: 자료 찾아서 자동적으로 계산할 수 있도록 해야 함
-public_spending = get_deduction(money, dependents)
-print(public_spending)
+spendings['public'] = deductions
+accounts["salary"] -= sum(spendings['public'].values())
+print('급여일: 31일')
+print(f'공적 지출: {sum(spendings["public"].values())}')
+print(f'급여 잔액: {accounts["salary"]}')
+get_accounts(accounts)
+print('-' * 20)
 
 # 고정 지출
-spending["fixed"] = {
-  '암 보험': 50000, 
-  '상해 보험': 36200, 
-  '실비 보험': 7827, 
-  '사망 보험': 185000,
-  '주택 청약': 100000, 
-  '보험 할부': 500000, # 2022. 08. 까지 11회 남음
+spendings['fixed'] = {
+  "암 보험": 50000, 
+  "상해 보험": 36200, 
+  "실비 보험": 7827, 
+  "사망 보험": 185000,
+  "주택 청약": 100000, 
+  "보험 할부": 500000, 
+  "핸드폰 요금": 23650, 
 }
-# 변동성 지출
-spending["variable"] = {
-  # '식비': 200000, 
-  # '교통비': 62000, 
-  '생활비': 300000, 
-}
+accounts["salary"] -= sum(spendings['fixed'].values())
+print('고정 지출일: 10일')
+print(f'고정 지출: {sum(spendings["fixed"].values())}')
+print(f'급여 잔액: {accounts["salary"]}')
+get_accounts(accounts)
+print('-' * 20)
 
-# 계절성 지출
-spending["seasonal"] = {
+# 소비 지출
+spendings['variable'] = {
+  "생활비": 300000
+}
+accounts['consumption'] = sum(spendings['variable'].values())
+accounts["salary"] -= sum(spendings['variable'].values())
+print('소비 금액 자동이체일: 1일')
+print(f'소비 지출: {sum(spendings["variable"].values())}')
+print(f'급여 잔액: {accounts["salary"]}')
+get_accounts(accounts)
+print('-' * 20)
+
+# 계절 지출
+spendings['seasonal'] = {
   '휴가비': 0
 }
 
-# 현재 public_spending이 세후 금액으로 돼있음 추후 수정 해야함
-# print(public_spending - get_money(fixed_spending, variable_spending, seasonal_spending))
-print(spending)
-
-# 지출 제외한 금액
-# remain_money = salary_account - (public_spending.values())
-
 investment_money = {
-  '적금': 200000, 
-  '주식': 200000
+  "주식": 200000, 
+  "비트코인": 200000
 }
+accounts['investment'] = sum(investment_money.values())
+accounts["salary"] -= sum(investment_money.values())
+print('투자 금액 자동이체일: 10일')
+print(f'투자 금액: {sum(investment_money.values())}')
+print(f'급여 잔액: {accounts["salary"]}')
+print('-' * 20)
 
-def display(spending):
-  for name, money in spending.items():
-    print(f'{name}: {money}원')
-  print(f'총 지출: {get_spendings(spending)}원')
-
-
-def display_all():
-  for spd in spending.values():
-    print(spd)
-    print('-'*20)
-
-
-  # 투자 금액 리스트와 총합계 출력
-  display(investment_money)
-  print('-'*20)
-
-display_all()
+# 급여 통장에 남은 모든 금액을 예비 통장으로 옮기기
+print('직접 확인하는 날: 10일 저녁')
+accounts['salary'], accounts['preliminary'] = accounts['preliminary'], accounts['salary']
+get_accounts(accounts)

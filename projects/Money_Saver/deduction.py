@@ -3,8 +3,22 @@
 import pandas as pd
 # from get_income_tax import get_income_tax
 
+def truncate(n):
+    return int(round(n / 10) * 10)
 
-def get_deduction(salary, dependents):
+
+def get_income_tax(salary, dependents):
+  """
+  salary: 월급
+  dependents: 부양가족
+  """
+  df = pd.read_excel('PythonPractice\projects\Money_Saver\modified_simple_tax_amount_table.xls')
+  base_salary = int(salary / 1000)
+  working_tax = df[df['미만'] > base_salary].iloc[0][dependents]
+  # 소득세 반환
+  return working_tax
+
+def get_deduction(salary, dependents, get_list=True):
   # 국민연금은 월 소득액(비과세액 제외)에서 4.5%를 공제한다.
   # 월 최저금액 28만원, 최고금액 449만원으로 과세한다.
   # 즉, 최저 월급 28만원에서 449만원 까지 과세비율이 달라진다.
@@ -37,31 +51,22 @@ def get_deduction(salary, dependents):
   # 지방소득세는 소득세의 10%를 공제한다.
   지방소득세 = 소득세 * 0.1
 
-  공제금액 = int(국민연금 + 건강보험 + 장기요양 + 고용보험 + 소득세 + 지방소득세)
 
+  공제금액 = {
+    "국민연금": 국민연금,
+      "건강보험": 건강보험,
+      "장기요양": 장기요양,
+      "고용보험": 고용보험,
+      "소득세": 소득세,
+      "지방소득세": 지방소득세,
+  }
+
+  공제금액 = {k: truncate(v) for k, v in 공제금액.items()}
+  
+  # if get_list:
+  #   return 국민연금, 건강보험, 장기요양, 고용보험, 소득세, 지방소득세
   return 공제금액
 
-
-
-# print(df)
-# 부양가족 = 1
-# 월급 = 1999999
-# 기준월급 = int(월급 / 1000)
-# print(기준월급)
-# 소득세 = df[df['미만'] > 기준월급].iloc[0][부양가족]
-# print(소득세)
-
-
-def get_income_tax(salary, dependents):
-  """
-  salary: 월급
-  dependents: 부양가족
-  """
-  df = pd.read_excel('PythonPractice\projects\Money_Saver\modified_simple_tax_amount_table.xls')
-  base_salary = int(salary / 1000)
-  working_tax = df[df['미만'] > base_salary].iloc[0][dependents]
-  # 소득세 반환
-  return working_tax
 
 
 if __name__ == '__main__':
