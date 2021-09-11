@@ -61,20 +61,24 @@ print(f'공적 지출: {sum(spendings["public"].values())}')
 print(f'급여 잔액: {accounts["salary"]}')
 get_accounts(accounts)
 print('-' * 20)
-
+import numpy as np
 # 고정 지출
 spendings['fixed'] = {
-  "암 보험": 50000, 
-  "상해 보험": 36200, 
-  "실비 보험": 7827, 
-  "사망 보험": 185000,
-  "주택 청약": 100000, 
-  "보험 할부": 500000, 
-  "핸드폰 요금": 23650, 
+  "암 보험": [50000, 5], 
+  "상해 보험": [36200, 5], 
+  "사망 보험": [185000, 5], 
+  "실비 보험": [7827, 5], 
+  "주택 청약": [100000, 1], 
+  "보험 할부": [500000, 1], 
+  # "핸드폰 요금": [23650, 9], 
 }
-accounts["salary"] -= sum(spendings['fixed'].values())
-print('고정 지출일: 10일')
-print(f'고정 지출: {sum(spendings["fixed"].values())}')
+print('고정지출 금액')
+print(np.array(list(spendings["fixed"].values()))[:, 0])
+print('고정지출 날짜')
+print(np.array(list(spendings["fixed"].values()))[:, 1].max())
+accounts["salary"] -= np.array(list(spendings["fixed"].values()))[:, 0].sum()
+print(f'고정 지출 마지막 날짜: {np.array(list(spendings["fixed"].values()))[:, 1].max()}일')
+print(f'고정 지출: {np.array(list(spendings["fixed"].values()))[:, 0].sum()}')
 print(f'급여 잔액: {accounts["salary"]}')
 get_accounts(accounts)
 print('-' * 20)
@@ -85,7 +89,7 @@ spendings['variable'] = {
 }
 accounts['consumption'] = sum(spendings['variable'].values())
 accounts["salary"] -= sum(spendings['variable'].values())
-print('소비 금액 자동이체일: 1일')
+print('소비 금액 자동이체일: 5일')
 print(f'소비 지출: {sum(spendings["variable"].values())}')
 print(f'급여 잔액: {accounts["salary"]}')
 get_accounts(accounts)
@@ -102,12 +106,12 @@ investment_money = {
 }
 accounts['investment'] = sum(investment_money.values())
 accounts["salary"] -= sum(investment_money.values())
-print('투자 금액 자동이체일: 10일')
+print('투자 금액 자동이체일: 5일')
 print(f'투자 금액: {sum(investment_money.values())}')
 print(f'급여 잔액: {accounts["salary"]}')
 print('-' * 20)
 
 # 급여 통장에 남은 모든 금액을 예비 통장으로 옮기기
-print('직접 확인하는 날: 10일 저녁')
+print('직접 확인하는 날: 5일 저녁')
 accounts['salary'], accounts['preliminary'] = accounts['preliminary'], accounts['salary']
 get_accounts(accounts)
