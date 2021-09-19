@@ -46,19 +46,20 @@ def get_spendings(spendings):
 
 
 deductions = get_deduction(before_tax_salary, dependents)
-print(sum(deductions.values()))
+print(f'총 공제금: {sum(deductions.values())}')
 # get_spendings(deductions)
 
 ## 입금 후
 
 ## 
 accounts["salary"] = before_tax_salary
+print(f'세전 급여: {accounts["salary"]}')
 # 공적 지출
 spendings['public'] = deductions
 accounts["salary"] -= sum(spendings['public'].values())
 print('급여일: 31일')
 print(f'공적 지출: {sum(spendings["public"].values())}')
-print(f'급여 잔액: {accounts["salary"]}')
+print(f'세후 급여: {accounts["salary"]}')
 get_accounts(accounts)
 print('-' * 20)
 import numpy as np
@@ -70,7 +71,9 @@ spendings['fixed'] = {
   "실비 보험": [7827, 5], 
   "주택 청약": [100000, 1], 
   "보험 할부": [500000, 1], 
-  # "핸드폰 요금": [23650, 9], 
+  "유튜브 프리미엄": [8960, 1], 
+  "넷플릭스": [3000, 1], 
+  "핸드폰 요금": [23650, 9], 
 }
 print('고정지출 금액')
 print(np.array(list(spendings["fixed"].values()))[:, 0])
