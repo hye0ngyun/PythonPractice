@@ -1,6 +1,7 @@
 t = int(input())
 beer = 20
 can_go = True
+results = []
 for i in range(t):
     n = int(input())
     sx, sy = map(int, input().split())
@@ -12,5 +13,7 @@ for i in range(t):
         elif can_go:
             can_go = True if (((m[j][0] - m[j-1][0]) + (m[j][1] - m[j-1][1])) <= (beer * 50)) else False
     ex, ey = map(int, input().split())
-    result = 'happy' if (can_go and (((ex - m[j][0]) + (ey - m[j][0])) <= (beer * 50))) else 'sad'
+    results.append('happy' if (can_go and (((ex - m[j][0]) + (ey - m[j][0])) <= (beer * 50))) else 'sad')
+
+for result in results:
     print(result)
