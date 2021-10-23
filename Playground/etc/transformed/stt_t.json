@@ -1,0 +1,68 @@
+{
+    "amazon": {
+        "api": "Transcribe", 
+        "Tasks Supported": "STT", 
+        "Main details": "일괄 처리 가능, 파일을 API에 직접 전달하거나 Google 클라우드 저장소에 저장해 사용 가능", 
+        "KR Language supported": "True", 
+        "Result quality": "", 
+        "price": "0.006USD / 15s", 
+        "url": "https://cloud.google.com/speech-to-text"
+    }, 
+    "Google Colud": {
+        "api": "Speech API", 
+        "Tasks Supported": "STT", 
+        "Main details": "", 
+        "KR Language supported": "True", 
+        "Result quality": "", 
+        "price": 1
+    }, 
+    "IBM Watson": {
+        "api": "Speech to Text", 
+        "Tasks Supported": "STT", 
+        "Main details": "", 
+        "KR Language supported": "True", 
+        "Result quality": "", 
+        "price": 1
+    }, 
+    "Microsoft Azure": {
+        "api": "Bing Speech API", 
+        "Tasks Supported": "STT", 
+        "Main details": "", 
+        "KR Language supported": "True", 
+        "Result quality": "", 
+        "price": 1
+    },
+    "nexmo": {
+        "api": "Voice API", 
+        "Tasks Supported": "STT", 
+        "Main details": "", 
+        "KR Language supported": "True", 
+        "Result quality": "", 
+        "price": 1
+    }, 
+    "SPEECHMATICS": {
+        "api": "ASR", 
+        "Tasks Supported": "STT", 
+        "Main details": "", 
+        "KR Language supported": "True", 
+        "Result quality": "", 
+        "price": 1
+    }, 
+    "twilio": {
+        "api": "Speech Recognition", 
+        "Tasks Supported": "STT", 
+        "Main details": "", 
+        "KR Language supported": "True", 
+        "Result quality": "", 
+        "price": 1
+    }, 
+    "VOCAPIA": {
+        "api": "Sigma API", 
+        "Tasks Supported": "STT", 
+        "Main details": "", 
+        "KR Language supported": "True", 
+        "Result quality": "", 
+        "price": 1
+    }
+
+}end of transform

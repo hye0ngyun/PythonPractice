@@ -14,7 +14,7 @@ pay_day = 31
 # dependents: 부양가족
 dependents = 1
 # 세전월급
-before_tax_salary = '2,000,000'
+before_tax_salary = '2,300,000'
 before_tax_salary = int(before_tax_salary.replace(',', ''))
 
 accounts = {
