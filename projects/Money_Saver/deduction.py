@@ -1,7 +1,13 @@
+#-*-coding:utf-8-*-
 # 세전 월급을 입력하면 세금을 계산하여 세후 금액을 구하는 모듈
 # 공제(Deduction): 사전적 의미로 일정 금액, 수량 등을 뺀다는 뜻
 import pandas as pd
 # from get_income_tax import get_income_tax
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
+
 
 def truncate(n):
     return int(round(n / 10) * 10)
