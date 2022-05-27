@@ -1,5 +1,5 @@
 import pandas as pd
-df = pd.read_excel('PythonPractice\projects\Money_Saver\modified_simple_tax_amount_table.xls')
+df = pd.read_excel('./modified_simple_tax_amount_table.xls')
 # print(df)
 # 부양가족 = 1
 # 월급 = 1999999

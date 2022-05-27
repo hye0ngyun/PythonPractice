@@ -5,8 +5,8 @@ import pandas as pd
 # from get_income_tax import get_income_tax
 import sys
 import io
-sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
-sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
+# sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
+# sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 
 def truncate(n):
@@ -18,7 +18,7 @@ def get_income_tax(salary, dependents):
   salary: 월급
   dependents: 부양가족
   """
-  df = pd.read_excel('PythonPractice\projects\Money_Saver\modified_simple_tax_amount_table.xls')
+  df = pd.read_excel('./modified_simple_tax_amount_table.xls')
   base_salary = int(salary / 1000)
   working_tax = df[df['미만'] > base_salary].iloc[0][dependents]
   # 소득세 반환

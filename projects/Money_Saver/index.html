@@ -5,10 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env>
+      - pandas
+      - xlrd
+      - paths:
+        - ./deduction.py
+        - ./modified_simple_tax_amount_table.xls
+    </py-env>
   </head>
   <body>
     <form action="" method="GET">
-      <p>현재(희망)연봉 입력</p>
+      <p>현재(희망)연봉 입력</p> 
       <div>
         <label for="salary-choice">연봉/월급 선택</label>
         <input type="radio" name="salary-choice" id="year" />
@@ -37,6 +46,14 @@
       <li id="5">Item 5</li>
       <li id="6">Item 6</li>
     </ul>
+    <py-script src="./main.py">
+
+    </py-script>
+    <!-- <py-script>
+      import pandas as pd
+      # read csv 불가능했던 에러 참고 사이트 https://community.anaconda.cloud/t/read-csv-into-pandas-from-disk/20409/4
+      df = pd.read_excel('./modified_simple_tax_amount_table.xls')
+    </py-script> -->
     <script>
       {
         // function click_label(event) {
