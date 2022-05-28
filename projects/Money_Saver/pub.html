@@ -5,14 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <py-env>
+      - pandas
+      - xlrd
+      - paths:
+        - ./deduction.py
+        - ./modified_simple_tax_amount_table.xls
+    </py-env>
   </head>
   <body>
+    <py-script src="./test.py">
+    </py-script>
     <main class="container-lg">
       <div class="row">
         <!-- 옵션 -->
@@ -102,6 +113,7 @@
                 <input
                   type="number"
                   class="form-control col"
+                  id="dependents"
                   min="1"
                   max="11"
                   value="1"
@@ -115,6 +127,7 @@
                 <input
                   type="number"
                   class="form-control col"
+                  id="taxfree"
                   min="0"
                   value="100000"
                 />
@@ -122,61 +135,64 @@
               </div>
             </div>
             <div class="col">
-              <input type="submit" class="btn btn-primary btn-lg btn-block" />
+              <input type="button" class="btn btn-primary btn-lg btn-block" value="계산하기" pys-onClick="calculate" id="submit"/>
             </div>
           </div>
         </div>
         <!-- 결과 -->
         <div class="col">
           <div>예상 실수령액</div>
-          <div id="result"></div>
+          <div>
+            <span id="result">0</span>
+          <span>원</span>
+          </div>
           <div>한 달 기준 공제액</div>
           <div class="row">
-            <div class="col-10">국민연금</div>
-            <div class="col-2">
+            <div class="col-6">국민연금</div>
+            <div class="col-6 d-flex justify-content-end">
               <span id="국민연금">0</span>
               <span>원</span>
             </div>
           </div>
           <div class="row">
-            <div class="col-10">건강보험</div>
-            <div class="col-2">
+            <div class="col-6">건강보험</div>
+            <div class="col-6 d-flex justify-content-end">
               <span id="건강보험">0</span>
               <span>원</span>
             </div>
           </div>
           <div class="row">
-            <div class="col-10">장기요양</div>
-            <div class="col-2">
+            <div class="col-6">장기요양</div>
+            <div class="col-6 d-flex justify-content-end">
               <span id="장기요양">0</span>
               <span>원</span>
             </div>
           </div>
           <div class="row">
-            <div class="col-10">고용보험</div>
-            <div class="col-2">
+            <div class="col-6">고용보험</div>
+            <div class="col-6 d-flex justify-content-end">
               <span id="고용보험">0</span>
               <span>원</span>
             </div>
           </div>
           <div class="row">
-            <div class="col-10">소득세</div>
-            <div class="col-2">
+            <div class="col-6">소득세</div>
+            <div class="col-6 d-flex justify-content-end">
               <span id="소득세">0</span>
               <span>원</span>
             </div>
           </div>
           <div class="row">
-            <div class="col-10">지방소득세</div>
-            <div class="col-2">
+            <div class="col-6">지방소득세</div>
+            <div class="col-6 d-flex justify-content-end">
               <span id="지방소득세">0</span>
               <span>원</span>
             </div>
           </div>
           <div class="row">
-            <div class="col-10">공제액 합계</div>
-            <div class="col-2">
-              <span id="공제액 합계">0</span>
+            <div class="col-6">공제액 합계</div>
+            <div class="col-6 d-flex justify-content-end">
+              <span id="deductions">0</span>
               <span>원</span>
             </div>
           </div>

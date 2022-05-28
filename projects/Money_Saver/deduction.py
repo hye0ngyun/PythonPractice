@@ -24,7 +24,12 @@ def get_income_tax(salary, dependents):
   # 소득세 반환
   return working_tax
 
-def get_deduction(salary, dependents, get_list=True):
+def get_deduction(salary, dependents, taxfree, get_list=True):
+  salary = int(salary)
+  dependents = int(dependents)
+  taxfree = int(taxfree)
+  # 비과세액 적용
+  salary = salary - taxfree
   # 국민연금은 월 소득액(비과세액 제외)에서 4.5%를 공제한다.
   # 월 최저금액 28만원, 최고금액 449만원으로 과세한다.
   # 즉, 최저 월급 28만원에서 449만원 까지 과세비율이 달라진다.
