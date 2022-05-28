@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <main class="container-lg">
+      <div class="row">
+        <!-- 옵션 -->
+        <div class="col">
+          <div class="row">필수입력</div>
+          <div class="row">
+            <div class="col-6">
+              <div>급여기준</div>
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic radio toggle button group"
+              >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio1"
+                  id="sal-year"
+                  autocomplete="off"
+                  checked
+                />
+                <label class="btn btn-outline-primary" for="sal-year"
+                  >연봉</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio1"
+                  id="sal-month"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="sal-month"
+                  >월급</label
+                >
+              </div>
+            </div>
+            <div class="col-6">
+              <div>퇴직금</div>
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic radio toggle button group"
+              >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio2"
+                  id="severance-pay-true"
+                  autocomplete="off"
+                  checked
+                />
+                <label class="btn btn-outline-primary" for="severance-pay-true"
+                  >포함</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio2"
+                  id="severance-pay-false"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="severance-pay-false"
+                  >별도</label
+                >
+              </div>
+            </div>
+            <div class="col">
+              <div>연봉</div>
+              <div class="row align-content-center">
+                <input
+                  type="text"
+                  class="form-control col"
+                  id="salary"
+                  placeholder="0"
+                />
+                <div class="col-1 d-flex align-items-center">원</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div>선택입력</div>
+            <div class="col-6">
+              <div>부양 가족 수(본인포함)</div>
+              <div class="row">
+                <input
+                  type="number"
+                  class="form-control col"
+                  min="1"
+                  max="11"
+                  value="1"
+                />
+                <span class="col-1 d-flex align-items-center">명</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div>비과세액</div>
+              <div class="row">
+                <input
+                  type="number"
+                  class="form-control col"
+                  min="0"
+                  value="100000"
+                />
+                <span class="col-1 d-flex align-items-center">원</span>
+              </div>
+            </div>
+            <div class="col">
+              <input type="submit" class="btn btn-primary btn-lg btn-block" />
+            </div>
+          </div>
+        </div>
+        <!-- 결과 -->
+        <div class="col">
+          <div>예상 실수령액</div>
+          <div id="result"></div>
+          <div>한 달 기준 공제액</div>
+          <div class="row">
+            <div class="col-10">국민연금</div>
+            <div class="col-2">
+              <span id="국민연금">0</span>
+              <span>원</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-10">건강보험</div>
+            <div class="col-2">
+              <span id="건강보험">0</span>
+              <span>원</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-10">장기요양</div>
+            <div class="col-2">
+              <span id="장기요양">0</span>
+              <span>원</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-10">고용보험</div>
+            <div class="col-2">
+              <span id="고용보험">0</span>
+              <span>원</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-10">소득세</div>
+            <div class="col-2">
+              <span id="소득세">0</span>
+              <span>원</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-10">지방소득세</div>
+            <div class="col-2">
+              <span id="지방소득세">0</span>
+              <span>원</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-10">공제액 합계</div>
+            <div class="col-2">
+              <span id="공제액 합계">0</span>
+              <span>원</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="row">
+
+      </div> -->
+    </main>
+  </body>
+</html>
