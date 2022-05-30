@@ -1,7 +1,5 @@
 from deduction import *
 
-result = Element('result')
-result.element.innerText = 1
 def calculate(*args):
   # 부양가족 수
   dependents = Element('dependents').value
@@ -23,16 +21,12 @@ def calculate(*args):
   elif sal_year and not severance_pay:
     before_tax_salary //= 13
 
-    
-
-
-
-
   # 세전월급과 부양가족수로 각 공제금 구하기
   deductions = get_deduction(before_tax_salary, dependents, taxfree)
   
   el_deductions = Element('deductions')
   # 실수령 금액
+  result = Element('result')
   result.element.innerText = before_tax_salary - sum(deductions.values())
 
   # 공제금 총합
@@ -45,5 +39,3 @@ def calculate(*args):
   Element('고용보험').element.innerText = deductions['고용보험']
   Element('소득세').element.innerText = deductions['소득세']
   Element('지방소득세').element.innerText = deductions['지방소득세']
-
-  
