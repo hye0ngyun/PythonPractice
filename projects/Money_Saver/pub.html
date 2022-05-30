@@ -5,27 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <!-- <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" /> -->
-    <!-- <script defer src="https://pyscript.net/alpha/pyscript.js"></script> -->
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <!-- <py-env>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <py-env>
       - pandas
       - xlrd
       - paths:
         - ./deduction.py
         - ./modified_simple_tax_amount_table.xls
-    </py-env> -->
+    </py-env>
+    <style>
+      .text-right {
+        text-align: right !important;
+      }
+    </style>
   </head>
   <body>
-    <!-- <py-script src="./test.py">
-    </py-script> -->
-    <main class="container-fluid">
-      <div class="row my-5 p-3">
+    <py-script src="./test.py">
+    </py-script>
+    <main class="container my-5">
+      <div class="row py-5 p-3 border">
         <!-- 옵션 -->
         <div class="col-lg-6 mb-3">
           <div class="row mb-3">
@@ -33,7 +44,7 @@
             <div class="col-6 mb-2">
               <div class="mb-2">급여기준</div>
               <div
-                class="btn-group"
+                class="btn-group btn-group1"
                 role="group"
                 aria-label="Basic radio toggle button group"
               >
@@ -64,7 +75,7 @@
             <div class="col-6 mb-2">
               <div class="mb-2">퇴직금</div>
               <div
-                class="btn-group"
+                class="btn-group btn-group2"
                 role="group"
                 aria-label="Basic radio toggle button group"
               >
@@ -96,7 +107,7 @@
               <div class="row align-content-center">
                 <input
                   type="text"
-                  class="form-control col"
+                  class="form-control col text-right"
                   id="salary"
                   placeholder="0"
                 />
@@ -110,12 +121,11 @@
               <div class="mb-2">부양 가족 수(본인포함)</div>
               <div class="row">
                 <input
-                  type="number"
+                  type="text"
                   class="form-control col"
                   id="dependents"
-                  min="1"
-                  max="11"
                   value="1"
+                  maxlength="2"
                 />
                 <span class="col-3 d-flex align-items-center">명</span>
               </div>
@@ -124,11 +134,10 @@
               <div class="mb-2">비과세액</div>
               <div class="row">
                 <input
-                  type="number"
+                  type="text"
                   class="form-control col"
                   id="taxfree"
-                  min="0"
-                  value="100000"
+                  value="100,000"
                 />
                 <span class="col-3 d-flex align-items-center">원</span>
               </div>
@@ -208,5 +217,46 @@
 
       </div> -->
     </main>
+    <script>
+      function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+      $(() => {
+        $("#salary").on("input", (e) => {
+          // 숫자 이외의 값이 들어오면 '' 빈 문자열로 대체
+          const input = e.target.value.toString().replace(/\D/g, "");
+          // 사용자가 입력한 숫자를 시각적으로 보기 좋게 100단위로 컴마 삽입
+          e.target.value = numberWithCommas(input);
+        });
+        $("#taxfree").on("input", (e) => {
+          // 숫자 이외의 값이 들어오면 '' 빈 문자열로 대체
+          const input = e.target.value.toString().replace(/\D/g, "");
+          // 사용자가 입력한 숫자를 시각적으로 보기 좋게 100단위로 컴마 삽입
+          e.target.value = numberWithCommas(input);
+        });
+        $("#dependents").on("input", (e) => {
+          let input = e.target.value.toString().replace(/\D/g, "");
+          if (input < 1) {
+            input = 0;
+          } else if (input > 11) {
+            input = 11;
+          }
+          e.target.value = Number(input);
+        });
+
+        // 급여기준
+        // 급여기준 - 연봉
+        console.log($("#sal-year").prop("checked"));
+        console.log($("#sal-month").prop("checked"));
+        $("#sal-month").on('click', () => {
+          $('.btn-group2 > input').prop('checked', false)
+          $('.btn-group2 > label').addClass('disabled').addClass('btn-secondary').removeClass('btn-outline-primary')
+        })
+        $("#sal-year").on('click', () => {
+          $('.btn-group2 > input').first().prop('checked', true)
+          $('.btn-group2 > label').removeClass('disabled').removeClass('btn-secondary').addClass('btn-outline-primary')
+        })
+      });
+    </script>
   </body>
 </html>
